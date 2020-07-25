@@ -44,13 +44,12 @@ public class BootStrapData implements CommandLineRunner {
         System.out.println("Started in Bootstrap");
         System.out.println("Number of books: " + bookRepository.count());
 
-        Publisher cronos = new Publisher(
-                "Cronos",
-                "AB Street",
-                "New York",
-                "NY",
-                "7854"
-        );
+        Publisher cronos = new Publisher();
+        cronos.setName("Cronos");
+        cronos.setCity("New York");
+        cronos.setAddressLine1("56th street");
+        cronos.setState("NY");
+        cronos.setZip("789556");
 
         publisherRepository.save(cronos);
 
