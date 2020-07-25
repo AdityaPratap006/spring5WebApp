@@ -25,24 +25,7 @@ public class BootStrapData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Author john = new Author("John", "Wick");
-        Book tc = new Book("The Continental", "12344321");
-        john.getBooks().add(tc);
-        tc.getAuthors().add(john);
-
-        authorRepository.save(john);
-        bookRepository.save(tc);
-
-        Author rod = new Author("Rod", "Johnson");
-        Book noEJB = new Book("J2EE Development without EJB", "356648979875");
-        rod.getBooks().add(noEJB);
-        noEJB.getAuthors().add(rod);
-
-        authorRepository.save(rod);
-        bookRepository.save(noEJB);
-
         System.out.println("Started in Bootstrap");
-        System.out.println("Number of books: " + bookRepository.count());
 
         Publisher cronos = new Publisher();
         cronos.setName("Cronos");
@@ -55,5 +38,34 @@ public class BootStrapData implements CommandLineRunner {
 
         System.out.println(cronos);
         System.out.println("Number of publishers: " + publisherRepository.count());
+
+        Author john = new Author("John", "Wick");
+        Book tc = new Book("The Continental", "12344321");
+        john.getBooks().add(tc);
+        tc.getAuthors().add(john);
+
+        tc.setPublisher(cronos);
+        cronos.getBooks().add(tc);
+
+        authorRepository.save(john);
+        bookRepository.save(tc);
+        publisherRepository.save(cronos);
+
+        Author rod = new Author("Rod", "Johnson");
+        Book noEJB = new Book("J2EE Development without EJB", "356648979875");
+        rod.getBooks().add(noEJB);
+        noEJB.getAuthors().add(rod);
+
+        noEJB.setPublisher(cronos);
+        cronos.getBooks().add(noEJB);
+
+        authorRepository.save(rod);
+        bookRepository.save(noEJB);
+        publisherRepository.save(cronos);
+
+
+        System.out.println("Number of books: " + bookRepository.count());
+
+        System.out.println("Number of books published by cronos: " + cronos.getBooks().size());
     }
 }
